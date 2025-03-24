@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section text-center text-white">
+    <div class="container">
+        <h1 class="display-4 mb-4">Discover Your Next Favorite Movie</h1>
+        <p class="lead mb-5">Cinematch helps you find the perfect movie based on your preferences.</p>
+        <a href="{{ url_for('recc') }}" class="btn btn-primary btn-lg">Get Movie Recommendations</a>
+    </div>
+</div>
+
+<!-- Movie Posters Carousel -->
+<div class="container my-5">
+    <h2 class="text-center mb-4">Explore Popular Movies</h2>
+    <div id="movieCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row">
+                    <div class="col-md-3 offset-md-3">
+                        <div class="movie-poster">
+                            <img src="{{ url_for('static', filename='images/movie1.jpg') }}" alt="Atlantis: The Lost Empire" class="img-fluid rounded">
+                            <div class="poster-overlay">
+                                <h5>Atlantis: The Lost Empire</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="movie-poster">
+                            <img src="{{ url_for('static', filename='images/movie2.jpg') }}" alt="Arjun Reddy" class="img-fluid rounded">
+                            <div class="poster-overlay">
+                                <h5>Arjun Reddy</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    <div class="col-md-3 offset-md-3">
+                        <div class="movie-poster">
+                            <img src="{{ url_for('static', filename='images/movie3.jpg') }}" alt="Atlantis: The Lost Empire" class="img-fluid rounded">
+                            <div class="poster-overlay">
+                                <h5>Atlantis: The Lost Empire</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="movie-poster">
+                            <img src="{{ url_for('static', filename='images/movie4.jpg') }}" alt="X-Men: Dark Phoenix" class="img-fluid rounded">
+                            <div class="poster-overlay">
+                                <h5>X-Men: Dark Phoenix</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+{% endblock %}

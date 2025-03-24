@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}
+Suggestions
+{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Your Movie Recommendations</h2>
+    <table id="movies" class="table table-striped table-hover">
+        <thead class="tablehead">
+            <tr>
+                <th>Title</th>
+                <th>Year</th>
+                <th>Directors</th>
+                <th>Genre</th>
+                <th>Streaming</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+                <td class="directors">{{ item[3] }}</td>
+                <td>{{ item[9] }}</td>
+                <td>{{ item[10] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-center">
+        <a href="{{ url_for('recc') }}" class="btn btn-primary">Try Again</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends "layout.html" %}
+{% block title %}
+Get Recommendations
+{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Select Your Favorite Movies</h2>
+    <div class="directions text-center mb-4">
+        <span>Select your favorite movies (1-5 recommended), then click the button.</span>
+    </div>
+
+    <!-- Year Filter -->
+    <form method="POST" action="{{ url_for('recc') }}" class="mb-4">
+        <div class="mb-3">
+            <label for="year_filter" class="form-label">Filter by Year</label>
+            <select class="form-select" id="year_filter" name="year_filter" onchange="this.form.submit()">
+                <option value="">All Years</option>
+                {% for year in years %}
+                    <option value="{{ year }}" {% if year|string == selected_year %}selected{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+
+    <!-- Table -->
+    <form id="movie-selection-form" method="POST" action="{{ url_for('process') }}">
+        <div class="table-container">
+            <table id="movies" class="table table-striped table-hover">
+                <thead class="tablehead">
+                    <tr>
+                        <th>Select</th>
+                        <th>Title</th>
+                        <th>Year</th>
+                        <th>Directors</th>
+                        <th>Movie ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        <td><input type="checkbox" name="movie_ids" value="{{ item[0] }}" class="checkMe"></td>
+                        <td>{{ item[1] }}</td>
+                        <td>{{ item[2] }}</td>
+                        <td class="directors">{{ item[3] }}</td>
+                        <td>{{ item[0] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Get Selected Button with Loading Spinner -->
+        <div class="text-center mb-4">
+            <button id="getSelectedBtn" type="button" class="btn btn-primary" onclick="getCX()">
+                <span id="btnText">Get Selected</span>
+                <span id="loadingSpinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    // Restrict selection to 5 movies
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkboxes = document.querySelectorAll('.checkMe');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const checkedCount = document.querySelectorAll('.checkMe:checked').length;
+                if (checkedCount > 5) {
+                    this.checked = false;
+                    alert('You can select up to 5 movies only.');
+                }
+            });
+        });
+    });
+
+    function getCX() {
+        // Show loading spinner
+        document.getElementById("btnText").innerText = "Loading...";
+        document.getElementById("loadingSpinner").classList.remove("d-none");
+        document.getElementById("getSelectedBtn").disabled = true;
+
+        var grid = document.getElementById("movies");
+        var checkBoxes = grid.getElementsByTagName("INPUT");
+        var selectedM = [];
+
+        for (var i = 0; i < checkBoxes.length; i++) {
+            if (checkBoxes[i].checked) {
+                var currentRow = checkBoxes[i].parentNode.parentNode;
+                var movID = currentRow.getElementsByTagName("td")[4];
+                console.log(movID.innerText);
+                selectedM.push(movID.innerText);
+            }
+        }
+
+        // Client-side validation for 1-5 movies
+        if (selectedM.length === 0) {
+            alert("Please select at least one movie.");
+            // Reset button
+            document.getElementById("btnText").innerText = "Get Selected";
+            document.getElementById("loadingSpinner").classList.add("d-none");
+            document.getElementById("getSelectedBtn").disabled = false;
+            return;
+        }
+        if (selectedM.length > 5) {
+            alert("You can select up to 5 movies only.");
+            // Reset button
+            document.getElementById("btnText").innerText = "Get Selected";
+            document.getElementById("loadingSpinner").classList.add("d-none");
+            document.getElementById("getSelectedBtn").disabled = false;
+            return;
+        }
+
+        const moviesJSON = JSON.stringify(selectedM);
+        sendData(moviesJSON);
+    }
+
+    function sendData(data) {
+        $.ajax({
+            url: '/process',
+            type: 'POST',
+            data: { 'data': data },
+            success: function(result) {
+                window.location.href = "suggestions";
+            },
+            error: function() {
+                // Reset button on error
+                document.getElementById("btnText").innerText = "Get Selected";
+                document.getElementById("loadingSpinner").classList.add("d-none");
+                document.getElementById("getSelectedBtn").disabled = false;
+                alert("An error occurred. Please try again.");
+            }
+        });
+    }
+</script>
+{% endblock %}

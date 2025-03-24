@@ -1,0 +1,191 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+}
+
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1489599849927-2ee91cede3cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+    background-size: cover;
+    padding: 150px 0;
+    min-height: 400px; /* Ensure the section is visible even if the background image fails to load */
+}
+
+.title-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+}
+
+.navbar {
+    position: relative;
+}
+
+.movie-poster {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.movie-poster img {
+    width: 100%;
+    height: 450px; /* Standard movie poster aspect ratio */
+    object-fit: cover; /* Ensure the image fits nicely */
+    transition: transform 0.3s ease;
+}
+
+.movie-poster:hover img {
+    transform: scale(1.05);
+}
+
+.poster-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.movie-poster:hover .poster-overlay {
+    opacity: 1;
+}
+
+.problems {
+    color: #007bff;
+    font-size: 30px;
+    text-decoration: underline;
+}
+
+.l1 {
+    list-style-type: none;
+    padding: 0;
+    font-size: 20px;
+    text-align: center;
+}
+
+.tablehead {
+    background-color: #007bff;
+    color: white;
+}
+
+.directions {
+    font-size: 20px;
+}
+
+.directors {
+    text-align: center;
+}
+
+.footer {
+    background-color: #343a40;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+
+.card {
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+}
+
+.limitations {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 10px;
+}
+
+.limitations h6 {
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.limitations p {
+    font-size: 0.9rem;
+    color: #cccccc;
+    margin-bottom: 0;
+}
+
+.table th, .table td {
+    padding: 10px; /* Consistent padding for headers and cells */
+    text-align: left; /* Align text to the left */
+    vertical-align: middle; /* Center vertically */
+}
+
+.table th {
+    font-weight: bold;
+    background-color: #f8f9fa; /* Light background for headers */
+}
+
+.table td input[type="checkbox"] {
+    margin: 0 auto; /* Center the checkbox in the "Select" column */
+    display: block;
+}
+
+/* Ensure columns have consistent widths */
+.table th:nth-child(1), .table td:nth-child(1) { /* Select column */
+    width: 10%;
+}
+.table th:nth-child(2), .table td:nth-child(2) { /* Title column */
+    width: 30%;
+}
+.table th:nth-child(3), .table td:nth-child(3) { /* Year column */
+    width: 15%;
+}
+.table th:nth-child(4), .table td:nth-child(4) { /* Directors column */
+    width: 30%;
+}
+.table th:nth-child(5), .table td:nth-child(5) { /* Movie ID column */
+    width: 15%;
+}
+
+.sidebar {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 5px;
+    height: 70vh; /* Adjust height to fit the viewport */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.movie-list {
+    max-height: 100%;
+    overflow-y: auto; /* Ensure the movie list is scrollable */
+}
+
+.form-check {
+    margin-bottom: 10px;
+}
+
+.form-check-label {
+    font-size: 0.9em;
+}
+
+/* Ensure the sidebar doesn't overlap on smaller screens */
+@media (max-width: 767px) {
+    .col-md-4, .col-md-8 {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .sidebar {
+        height: 50vh; /* Adjust height for smaller screens */
+    }
+}
